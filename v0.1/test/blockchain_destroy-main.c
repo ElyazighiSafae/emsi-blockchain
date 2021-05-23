@@ -4,8 +4,6 @@
 
 #include "blockchain.h"
 
-void _blockchain_destroy(blockchain_t *blockchain);
-
 /**
  * main - Entry point
  *
@@ -14,18 +12,23 @@ void _blockchain_destroy(blockchain_t *blockchain);
 int main(void)
 {
     blockchain_t *blockchain;
-    block_t *first, *block1, *block2;
+    block_t *block;
 
     blockchain = blockchain_create();
-    first = llist_pop(blockchain->chain);
-    block1 = block_create(first, (int8_t *)"Holberton", 9);
-    block2 = block_create(block1, (int8_t *)"School", 6);
+    block = llist_get_head(blockchain->chain);
 
-    block_destroy(first);
-    block_destroy(block1);
-    block_destroy(block2);
+    block = block_create(block, (int8_t *)"Holberton", 9);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    block = block_create(block, (int8_t *)"School", 6);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    block = block_create(block, (int8_t *)"of", 2);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    block = block_create(block, (int8_t *)"Software", 8);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    block = block_create(block, (int8_t *)"Engineering", 11);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
 
-    _blockchain_destroy(blockchain);
+    blockchain_destroy(blockchain);
 
     return (EXIT_SUCCESS);
 }
